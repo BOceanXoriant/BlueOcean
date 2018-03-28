@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bo.constant.BOAppConstants;
+import com.bo.model.ReadFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,7 +36,12 @@ public class FileUploadController {
             Files.write(path, bytes);
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
-
+            try {
+				ReadFile.readFile();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } catch (IOException e) {
             e.printStackTrace();
         }
